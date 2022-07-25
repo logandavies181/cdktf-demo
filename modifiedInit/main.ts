@@ -39,6 +39,7 @@ class MyStack extends TerraformStack {
     })
   }
 }
+export default MyStack
 
 const app = new App()
 new MyStack(app, "modifiedInit")

@@ -23,19 +23,18 @@ class MyStack extends TerraformStack {
     })
     const dataAwsSsmParameterHello1 = new ssm.DataAwsSsmParameter(
       this,
-      "hello_1",
+      "hello_1_data", // we can't have resources of different types with the same name like in regular tf
       {
         name: "hello_1",
+        dependsOn: [
+          awsSsmParameterHello1
+        ]
       }
     )
-    dataAwsSsmParameterHello1.dependsOn = [
-      awsSsmParameterHello1.fqn
-    ]
 
     new ssm.SsmParameter(this, "hello_2", {
       name: "hello_2",
       type: "String",
-      value: `${dataAwsSsmParameterHello1.value}.. Again!`,
       value: `${dataAwsSsmParameterHello1.value}.. Again!`,
     })
   }
